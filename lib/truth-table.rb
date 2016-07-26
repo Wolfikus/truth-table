@@ -2,7 +2,7 @@
 
 class TruthTable
 
-  VERSION = "0.1"
+  VERSION = "0.2"
 
   class InvalidVariableName < Exception; end
 
@@ -86,14 +86,35 @@ class TruthTable
       (0...array.length).each do |i|
         len = @variables[i].length
         str = ' ' * len
-        str[(len/2)] = (array[i] ? "T" : "F")
+        str[(len/2)] = (array[i] ? "1" : "0")
         vals << str
       end
-      vals << "#{' ' * ((@expression.length / 2) - 1)}#{(evaluate(array) ? 'T' : 'F')}"
+      vals << "#{' ' * ((@expression.length / 2) - 1)}#{(evaluate(array) ? '1' : '0')}"
       lines << " #{vals.join(" | ")} "
     end
-
+    
     lines.join("\n")
+  end
+  
+  def rows
+    self.class.generate_true_false_arrays(@num_vars).each { |array|
+      array.collect! do |element|
+        if element
+          element = false
+        else
+          element = true
+        end
+      end
+    }
+  end
+  
+  def result
+    result_arr = []
+    
+    self.class.generate_true_false_arrays(@num_vars).each do |array|
+      result_arr.push((evaluate(array) ? 1 : 0))
+    end
+    result_arr
   end
 
   def inspect
