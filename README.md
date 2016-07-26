@@ -39,6 +39,13 @@ Accepted operators:
 * ^
 * xor (gets converted to ^)
 
+## Usage with 'mathn' package
+
+> M = Matrix[*TruthTable.new("(a && b) || c").rows]
+> V = Vector[*TruthTable.new("(a && b) || c").result]
+
+In this example M stays for Matrix, that consists of Truth Table rows and V - for Vector, based on Truth Table result.
+
 ## License
 
 Copyright (c) 2012 Les Fletcher
